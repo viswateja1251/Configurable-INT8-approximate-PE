@@ -1,0 +1,30 @@
+# synth_compare.ys
+
+# --- 1. Synthesize Exact PE ---
+read_verilog -sv rtl/pe_exact.sv
+hierarchy -check -top pe_exact
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+
+# Map to Sky130 HD standard cell library
+dfflibmap -liberty $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+
+tee -o reports/synth_pe_exact.rpt stat -liberty $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr netlist/pe_exact_netlist.v
+
+# --- 2. Synthesize Approx PE ---
+design -reset
+
+read_verilog -sv rtl/pe_approx.sv
+hierarchy -check -top pe_approx
+proc; opt; fsm; opt; memory; opt
+techmap; opt
+
+dfflibmap -liberty $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+abc -liberty $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+clean
+
+tee -o reports/synth_pe_approx.rpt stat -liberty $::env(PDK_ROOT)/sky130A/libs.ref/sky130_fd_sc_hd/lib/sky130_fd_sc_hd__tt_025C_1v80.lib
+write_verilog -noattr netlist/pe_approx_netlist.v

@@ -1,0 +1,7 @@
+{
+    "DESIGN_NAME": "inv_test",
+    "VERILOG_FILES": "dir::inv_test.v",
+    "CLOCK_PORT": null,
+    "FP_SIZING": "absolute",
+    "DIE_AREA": [0, 0, 60, 60]
+}

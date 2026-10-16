@@ -1,0 +1,9 @@
+0x00000     784 bytes  input_img_int8      [1][28][28]
+0x00310     150 bytes  conv1_weights_int8  [6][1][5][5]
+0x003A6    4704 bytes  conv1_out_int8      [6][28][28] (post-ReLU, pre-pool)
+0x01606    1176 bytes  conv2_in_int8       [6][14][14] (= pooled conv1 out)
+0x01A9E    2400 bytes  conv2_weights_int8  [16][6][5][5]
+0x023FE    1600 bytes  conv2_out_int8      [16][10][10] (post-ReLU, pre-pool)
+
+scales: s_x=0.00787402 s_w1=0.00299182 s_a1=0.01914644 s_w2=0.00252159 s_a2=0.05190692
+label of dumped image: 7

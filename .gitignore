@@ -1,0 +1,15 @@
+# OpenLane artifacts
+openlane/**/runs/
+.volare/
+pdk/
+
+# Virtual environment
+.venv/
+
+
+# Python artifacts
+__pycache__/
+*.pyc
+
+#generated log files
+*.log
